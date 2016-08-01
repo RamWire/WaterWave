@@ -19,6 +19,7 @@
     WaterView *v = [[WaterView alloc] initWithFrame:CGRectMake(0, 100, [[UIScreen mainScreen] bounds].size.width, 80) WithWaveHeight:40 WithColors:@[[UIColor clearColor],[UIColor grayColor],[UIColor yellowColor]]];
     v.waveAmplitude = 4.0;
     v.waveCycle = 1.0;
+    v.waveSpeed = 0.03;
     [self.view addSubview:v];
 }
 
