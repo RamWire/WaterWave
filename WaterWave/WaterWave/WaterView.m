@@ -10,7 +10,8 @@
 
 @interface WaterView()
 {
-    UIColor *_waterColor;
+    UIColor *_waterFirstColor;
+    UIColor *_waterSecondColor;
     CGFloat _waterLineY;
     CGFloat _waveAmplitude;
     CGFloat _waveCycle;
@@ -29,18 +30,37 @@
     // Drawing code
 }
 */
--(instancetype)initWithFrame:(CGRect)frame
+-(instancetype)initWithFrame:(CGRect)frame WithWaveHeight:(CGFloat)waveHeight WithColors:(NSArray *)waveColors
 {
     self=[super initWithFrame:frame];
     if (self) {
-        [self setBackgroundColor:[UIColor grayColor]];
         _waveAmplitude=3.0;
         _waveCycle=1.0;
         increase=NO;
-        _waterColor=[UIColor colorWithRed:88/255.0f green:202/255.0f blue:139/255.0f alpha:1];
-        _waterLineY=120.0;
-        
-        
+        if (waveColors.count > 1) {
+            for (NSInteger i = 0; i < waveColors.count; i++) {
+                if ([waveColors[i] isKindOfClass:[UIColor class]]) {
+                    switch (i) {
+                        case 0:
+                            [self setBackgroundColor:waveColors[0]];
+                            break;
+                        case 1:
+                            _waterFirstColor = waveColors[1];
+                            break;
+                        case 2:
+                            _waterSecondColor = waveColors[2];
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
+        }
+        if (self.frame.size.height > waveHeight) {
+            _waterLineY= self.frame.size.height - waveHeight;
+        }else {
+            _waterLineY = 30.0;
+        }
         _waveDisplayLink=[CADisplayLink displayLinkWithTarget:self selector:@selector(runWave)];
         [_waveDisplayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     }
@@ -70,64 +90,13 @@
     [self setNeedsDisplay];
 }
 
--(NSMutableAttributedString *) formatBatteryLevel:(NSInteger)percent
-{
-    UIColor *textColor=[UIColor redColor];
-    NSMutableAttributedString *attrText;
-    
-    NSString *percentText=[NSString stringWithFormat:@"%ld%%",(long)percent];
-    
-    NSMutableParagraphStyle *paragrahStyle = [[NSMutableParagraphStyle alloc] init];
-    [paragrahStyle setAlignment:NSTextAlignmentCenter];
-    if (percent<10) {
-        attrText=[[NSMutableAttributedString alloc] initWithString:percentText];
-        UIFont *capacityNumberFont=[UIFont fontWithName:@"HelveticaNeue-Thin" size:80];
-        UIFont *capacityPercentFont=[UIFont fontWithName:@"HelveticaNeue-Thin" size:40];
-        [attrText addAttribute:NSFontAttributeName value:capacityNumberFont range:NSMakeRange(0, 1)];
-        [attrText addAttribute:NSFontAttributeName value:capacityPercentFont range:NSMakeRange(1, 1)];
-        [attrText addAttribute:NSForegroundColorAttributeName value:textColor range:NSMakeRange(0, 2)];
-        [attrText  addAttribute:NSParagraphStyleAttributeName value:paragrahStyle range:NSMakeRange(0, 2)];
-        
-    }
-    else
-    {
-        attrText=[[NSMutableAttributedString alloc] initWithString:percentText];
-        UIFont *capacityNumberFont=[UIFont fontWithName:@"HelveticaNeue-Thin" size:80];
-        UIFont *capacityPercentFont=[UIFont fontWithName:@"HelveticaNeue-Thin" size:40];
-        
-        
-        if (percent>=100) {
-            
-            [attrText addAttribute:NSFontAttributeName value:capacityNumberFont range:NSMakeRange(0, 3)];
-            [attrText addAttribute:NSFontAttributeName value:capacityPercentFont range:NSMakeRange(3, 1)];
-            [attrText addAttribute:NSForegroundColorAttributeName value:textColor range:NSMakeRange(0, 4)];
-            [attrText addAttribute:NSParagraphStyleAttributeName value:paragrahStyle range:NSMakeRange(0, 4)];
-        }
-        else
-        {
-            [attrText addAttribute:NSFontAttributeName value:capacityNumberFont range:NSMakeRange(0, 2)];
-            [attrText addAttribute:NSFontAttributeName value:capacityPercentFont range:NSMakeRange(2, 1)];
-            [attrText addAttribute:NSForegroundColorAttributeName value:textColor range:NSMakeRange(0, 3)];
-            [attrText  addAttribute:NSParagraphStyleAttributeName value:paragrahStyle range:NSMakeRange(0, 3)];
-        }
-        
-    }
-    
-    
-    return attrText;
-}
 // Only override drawRect: if you perform custom drawing.
 // An empty implementation adversely affects performance during animation.
 - (void)drawRect:(CGRect)rect
 {
     //初始化画布
     CGContextRef context = UIGraphicsGetCurrentContext();
-    
-    NSMutableAttributedString *attriButedText=[self formatBatteryLevel:50];
-    CGRect textSize = [attriButedText boundingRectWithSize:CGSizeMake(400, 10000) options:NSStringDrawingUsesLineFragmentOrigin | NSStringDrawingUsesFontLeading context:nil];
-    CGPoint textPoint = CGPointMake(320/2-textSize.size.width/2, 70);
-    [attriButedText drawAtPoint:textPoint];
-    
+
     //推入
     CGContextSaveGState(context);
     
@@ -164,7 +133,7 @@
     float backReverseY=_waterLineY;
     CGPathMoveToPoint(backReversePath, NULL, 0, backReverseY);
     
-    for(float x=0;x<=320;x++){
+    for(float x=0;x<=[[UIScreen mainScreen] bounds].size.width;x++){
         
         //前波浪绘制
         frontY= _waveAmplitude * sin( x/180*M_PI + 4*_waveCycle/M_PI ) * 5 + _waterLineY;
@@ -188,8 +157,8 @@
     }
     
     //后波浪绘制
-    CGContextSetFillColorWithColor(context, [[UIColor orangeColor] CGColor]);
-    CGPathAddLineToPoint(backPath, nil, 320, rect.size.height);
+    CGContextSetFillColorWithColor(context, [_waterSecondColor CGColor]);
+    CGPathAddLineToPoint(backPath, nil, [[UIScreen mainScreen] bounds].size.width, rect.size.height);
     CGPathAddLineToPoint(backPath, nil, 0, rect.size.height);
     CGPathAddLineToPoint(backPath, nil, 0, _waterLineY);
     CGPathCloseSubpath(backPath);
@@ -200,23 +169,20 @@
     CGContextSaveGState(context);
     
     //后波浪反色绘制
-    CGPathAddLineToPoint(backReversePath, nil, 320, rect.size.height);
+    CGPathAddLineToPoint(backReversePath, nil, [[UIScreen mainScreen] bounds].size.width, rect.size.height);
     CGPathAddLineToPoint(backReversePath, nil, 100, rect.size.height);
     CGPathAddLineToPoint(backReversePath, nil, 100, _waterLineY);
     
     CGContextAddPath(context, backReversePath);
     CGContextClip(context);
-    [attriButedText addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, attriButedText.length)];
-    [attriButedText drawAtPoint:textPoint];
-    
     
     // CGContextSaveGState(context);
     //弹出
     CGContextRestoreGState(context);
     
     //前波浪绘制
-    CGContextSetFillColorWithColor(context, [_waterColor CGColor]);
-    CGPathAddLineToPoint(frontPath, nil, 320, rect.size.height);
+    CGContextSetFillColorWithColor(context, [_waterFirstColor CGColor]);
+    CGPathAddLineToPoint(frontPath, nil, [[UIScreen mainScreen] bounds].size.width, rect.size.height);
     CGPathAddLineToPoint(frontPath, nil, 0, rect.size.height);
     CGPathAddLineToPoint(frontPath, nil, 0, _waterLineY);
     CGPathCloseSubpath(frontPath);
@@ -228,15 +194,13 @@
     
     
     //前波浪反色绘制
-    CGPathAddLineToPoint(frontReversePath, nil, 320, rect.size.height);
+    CGPathAddLineToPoint(frontReversePath, nil, [[UIScreen mainScreen] bounds].size.width, rect.size.height);
     CGPathAddLineToPoint(frontReversePath, nil, 100, rect.size.height);
     CGPathAddLineToPoint(frontReversePath, nil, 100, _waterLineY);
     
     CGContextAddPath(context, frontReversePath);
     CGContextClip(context);
-    [attriButedText addAttribute:NSForegroundColorAttributeName value:[UIColor whiteColor] range:NSMakeRange(0, attriButedText.length)];
-    [attriButedText drawAtPoint:textPoint];
-    
+
     //推入
     CGContextSaveGState(context);
     

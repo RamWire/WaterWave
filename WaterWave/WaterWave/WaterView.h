@@ -10,4 +10,6 @@
 
 @interface WaterView : UIView
 
+-(instancetype)initWithFrame:(CGRect)frame WithWaveHeight:(CGFloat)waveHeight WithColors:(NSArray *)waveColors;
+
 @end
