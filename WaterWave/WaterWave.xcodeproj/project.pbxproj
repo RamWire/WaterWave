@@ -7,25 +7,23 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		7687CF651D4F34920083FEF0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7687CF641D4F34920083FEF0 /* LaunchScreen.storyboard */; };
 		CD0ED0D31C3D406C00DD254E /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0ED0D21C3D406C00DD254E /* main.m */; };
 		CD0ED0D61C3D406C00DD254E /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0ED0D51C3D406C00DD254E /* AppDelegate.m */; };
 		CD0ED0D91C3D406C00DD254E /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0ED0D81C3D406C00DD254E /* ViewController.m */; };
-		CD0ED0DC1C3D406C00DD254E /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD0ED0DA1C3D406C00DD254E /* Main.storyboard */; };
 		CD0ED0DE1C3D406C00DD254E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CD0ED0DD1C3D406C00DD254E /* Assets.xcassets */; };
-		CD0ED0E11C3D406C00DD254E /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CD0ED0DF1C3D406C00DD254E /* LaunchScreen.storyboard */; };
 		CD0ED0EA1C3D40D900DD254E /* WaterView.m in Sources */ = {isa = PBXBuildFile; fileRef = CD0ED0E91C3D40D900DD254E /* WaterView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		7687CF641D4F34920083FEF0 /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CD0ED0CE1C3D406C00DD254E /* WaterWave.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WaterWave.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD0ED0D21C3D406C00DD254E /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CD0ED0D41C3D406C00DD254E /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CD0ED0D51C3D406C00DD254E /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		CD0ED0D71C3D406C00DD254E /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
 		CD0ED0D81C3D406C00DD254E /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		CD0ED0DB1C3D406C00DD254E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CD0ED0DD1C3D406C00DD254E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		CD0ED0E01C3D406C00DD254E /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		CD0ED0E21C3D406C00DD254E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CD0ED0E81C3D40D900DD254E /* WaterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WaterView.h; sourceTree = "<group>"; };
 		CD0ED0E91C3D40D900DD254E /* WaterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WaterView.m; sourceTree = "<group>"; };
@@ -67,9 +65,8 @@
 				CD0ED0D81C3D406C00DD254E /* ViewController.m */,
 				CD0ED0E81C3D40D900DD254E /* WaterView.h */,
 				CD0ED0E91C3D40D900DD254E /* WaterView.m */,
-				CD0ED0DA1C3D406C00DD254E /* Main.storyboard */,
+				7687CF641D4F34920083FEF0 /* LaunchScreen.storyboard */,
 				CD0ED0DD1C3D406C00DD254E /* Assets.xcassets */,
-				CD0ED0DF1C3D406C00DD254E /* LaunchScreen.storyboard */,
 				CD0ED0E21C3D406C00DD254E /* Info.plist */,
 				CD0ED0D11C3D406C00DD254E /* Supporting Files */,
 			);
@@ -141,9 +138,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CD0ED0E11C3D406C00DD254E /* LaunchScreen.storyboard in Resources */,
 				CD0ED0DE1C3D406C00DD254E /* Assets.xcassets in Resources */,
-				CD0ED0DC1C3D406C00DD254E /* Main.storyboard in Resources */,
+				7687CF651D4F34920083FEF0 /* LaunchScreen.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -162,25 +158,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXVariantGroup section */
-		CD0ED0DA1C3D406C00DD254E /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CD0ED0DB1C3D406C00DD254E /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
-		CD0ED0DF1C3D406C00DD254E /* LaunchScreen.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				CD0ED0E01C3D406C00DD254E /* Base */,
-			);
-			name = LaunchScreen.storyboard;
-			sourceTree = "<group>";
-		};
-/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		CD0ED0E31C3D406C00DD254E /* Debug */ = {
@@ -304,6 +281,7 @@
 				CD0ED0E71C3D406C00DD254E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

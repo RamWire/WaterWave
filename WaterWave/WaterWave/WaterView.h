@@ -12,4 +12,7 @@
 
 -(instancetype)initWithFrame:(CGRect)frame WithWaveHeight:(CGFloat)waveHeight WithColors:(NSArray *)waveColors;
 
+@property (nonatomic, assign) CGFloat waveAmplitude;
+@property (nonatomic, assign) CGFloat waveCycle;
+
 @end
