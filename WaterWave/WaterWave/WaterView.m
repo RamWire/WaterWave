@@ -56,11 +56,8 @@
                 }
             }
         }
-        if (self.frame.size.height > waveHeight) {
-            _waterLineY= self.frame.size.height - waveHeight;
-        }else {
-            _waterLineY = 30.0;
-        }
+        self.frame = CGRectMake(frame.origin.x, frame.origin.y, frame.size.width, frame.size.height > 25?frame.size.height:25);
+        _waterLineY= (self.frame.size.height > waveHeight)?self.frame.size.height - waveHeight:20.0;
         _waveDisplayLink=[CADisplayLink displayLinkWithTarget:self selector:@selector(runWave)];
         [_waveDisplayLink addToRunLoop:[NSRunLoop mainRunLoop] forMode:NSRunLoopCommonModes];
     }
